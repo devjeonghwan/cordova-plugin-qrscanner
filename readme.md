@@ -1,31 +1,8 @@
-[![Build Status](https://travis-ci.org/bitpay/cordova-plugin-qrscanner.svg?branch=master)](https://travis-ci.org/bitpay/cordova-plugin-qrscanner) [![npm](https://img.shields.io/npm/v/cordova-plugin-qrscanner.svg)](https://www.npmjs.com/package/cordova-plugin-qrscanner) [![npm](https://img.shields.io/npm/dm/cordova-plugin-qrscanner.svg)](https://www.npmjs.com/package/cordova-plugin-qrscanner)
-[![Dependency Status](https://david-dm.org/bitpay/cordova-plugin-qrscanner.svg)](https://david-dm.org/bitpay/cordova-plugin-qrscanner)
-[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
-
 # cordova-plugin-qrscanner
 A fast, energy efficient, highly-configurable QR code scanner for Cordova apps – available for the iOS, Android, Windows, and browser platforms.
 
 QRScanner's native camera preview is rendered behind the Cordova app's webview, and QRScanner provides `show` and `hide` methods to toggle the transparency of the webview's background. This allows for a completely HTML/CSS/JS interface to be built inside the webview to control the scanner.
 
-**This fork contains several fixes to the original, now abandoned repo**
-## Examples
-
-<!-- Does your project use cordova-plugin-qrscanner? We'd love to share a screenshot of your scanning interface! Please send a pull request adding your screenshot to the list below. -->
-
-<table>
-<tr align="center">
-<!-- Please be sure your screenshot is hosted by cloud.githubusercontent.com. (You can upload by adding the image to any GitHub issue. -->
-<td><img height="450" src="https://cloud.githubusercontent.com/assets/904007/24809138/943a9628-1b8c-11e7-8659-828c8060a9b6.PNG" alt="BitPay – Secure Bitcoin Wallet"></td>
-<td><img height="450" src="https://cloud.githubusercontent.com/assets/904007/24809499/b192a246-1b8d-11e7-9f3b-e85ae480fdd6.PNG" alt="Copay Bitcoin Wallet Platform"></td>
-<td><img height="450" src="https://cloud.githubusercontent.com/assets/5379359/25655918/0909bac8-2ff7-11e7-8775-ebb11bb085d6.png" alt="BitPocket Point Of Sale App"></td>
-</tr>
-<tr align="center">
-<!-- Please provide a title and, if possible, a link to your project. -->
-<td><a href="https://bitpay.com/wallet">BitPay – Secure Bitcoin Wallet</a></td>
-<td><a href="https://github.com/bitpay/copay">bitpay/copay</a></td>
-<td><a href="https://github.com/getbitpocket/bitpocket-mobile-app">BitPocket - Bitcoin Point of Sale App</a></td>
-</tr>
-</table>
 
 ## Get Started
 
@@ -300,7 +277,7 @@ Retrieve the status of QRScanner and provide it to the callback function.
 
 Name                             | Description
 :------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-`authorized`                     | On iOS and Android 6.0+, camera access is granted at runtime by the user (by clicking "Allow" at the dialog). The `authorized` property is a boolean value which is true only when the user has allowed camera access to your app (`AVAuthorizationStatus.Authorized`). On platforms with permissions granted at install (Android pre-6.0, Windows Phone) this property is always true.
+`authorized`                     | On iOS and Android 6.0+, camera access is granted at runtime by the user (by clicking "Allow" at the dialog). The `authorized` property is a boolean value which is true only when the user has allowed camera access to your app (`AVAuthorizationStatus.Authorized`). On platforms with permissions granted at install (Android pre-6.0) this property is always true.
 `denied`                         | A boolean value which is true if the user permanently denied camera access to the app (`AVAuthorizationStatus.Denied`). Once denied, camera access can only be gained by requesting the user change their decision (consider offering a link to the setting via `openSettings()`).
 `restricted`                     | A boolean value which is true if the user is unable to grant permissions due to parental controls, organization security configuration profiles, or similar reasons.
 `prepared`                       | A boolean value which is true if QRScanner is prepared to capture video and render it to the view.
@@ -376,12 +353,6 @@ Unlike iOS, on Android >=6.0, permissions can be requested multiple times. If th
 
 Because of API limitations, `status.restricted` will always be false on the Android platform. See [#15](https://github.com/bitpay/cordova-plugin-qrscanner/issues/15) for details. Pull requests welcome!
 
-## Windows
-
-Before testing - ensure the Windows Phone SDK is installed. In order to deploy from the command line Windows Phone 8.0 SDK and Visual Studio 2012 update 2 (or later) must be installed. Visual Studio 2015 is recommended for debugging Windows desktop apps.
-
-The Windows platform renders an impervious white layer behind its browser- the video preview is not behind the webView, but is actually an HTML element that is carefully managed. Hide and show change the style properties (visibility) of the preview.
-
 ## Browser
 
 While the browser implementation matches the native mobile implementations very closely, the platform itself does not. Notably:
@@ -431,32 +402,3 @@ On the browser platform, it's possible to adjust the interval at which QR decode
 
 ## Typescript
 Type definitions for cordova-plugin-qrscanner are [available in the DefinitelyTyped project](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/cordova-plugin-qrscanner/cordova-plugin-qrscanner.d.ts).
-
-## Contributing &amp; Testing
-
-To contribute, first install the dependencies:
-
-```sh
-npm install
-```
-
-Then setup the test project:
-
-```sh
-npm run gen-tests
-```
-
-This will create a new cordova project in the `cordova-plugin-test-projects` directory next to this repo, install `cordova-plugin-qrscanner`, and configure the [Cordova Plugin Test Framework](https://github.com/apache/cordova-plugin-test-framework). Once the platform tests are generated, the following commands are available:
-
-- `npm run test:android`
-- `npm run test:browser`
-- `npm run test:ios`
-- `npm run test:windows`
-
-Both Automatic Tests (via Cordova Plugin Test Framework's built-in [Jasmine](https://github.com/jasmine/jasmine)) and Manual Tests are available. Automatic tests confirm the existence and expected structure of the javascript API, and manual tests should be used to confirm functionality on each platform.
-
-The manual tests for the library are available without the cordova test project:
-
-- `npm run test:library`
-
-The build for this repo currently only confirms javascript style and syntax with [jshint](https://github.com/jshint/jshint). Pull requests with additional automated test methods are welcome!
